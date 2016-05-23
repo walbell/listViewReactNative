@@ -1,0 +1,12 @@
+{
+    "nomen": false,
+    "node": true,
+    "esnext": true,
+    "globalstrict": false,
+    "quotmark": false,
+    "smarttabs": true,
+    "trailing": true,
+    "undef": true,
+    "unused": "vars",
+    "predef": ["fetch"]
+}
