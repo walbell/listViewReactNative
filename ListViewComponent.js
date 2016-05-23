@@ -89,12 +89,14 @@ export class ListViewComponent extends Component {
 
     render() {
         return (
-                <ListView
-                dataSource={this.state.dataSource}
-                renderRow={this.renderRow}
-                renderHeader={this.renderHeader}
-                renderFooter={this.renderFooter}
-                style={styles.listView}/>
+                <View style={styles.container}>
+                    <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderRow}
+                    renderHeader={this.renderHeader}
+                    renderFooter={this.renderFooter}
+                    style={styles.listView}/>
+                </View>
         );
     }
 }
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     },
     headingText: {
         flex: 1,
-        fontSize: 24,
+        fontSize: 14,
         color: '#FFFFFF',
         alignSelf: 'center'
     }

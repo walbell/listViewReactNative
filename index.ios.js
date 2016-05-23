@@ -8,12 +8,9 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  View,
   Navigator
 } from 'react-native';
 import {ListViewComponent} from './ListViewComponent';
-// import {DetailComponent} from './DetailComponent';
-import {Main} from './Main';
 
 
 class listViewExample extends Component {
@@ -21,7 +18,7 @@ class listViewExample extends Component {
         return (
           <Navigator
             configureScene={ this.configureScene }
-            sceneStyle={styles.container}
+            sceneStyle={styles.scene}
             ref={(navigator) => {
                 this.navigator = navigator;
             }}
@@ -95,9 +92,16 @@ const styles = StyleSheet.create({
     },
     headingText: {
         flex: 1,
-        fontSize: 24,
+        fontSize: 14,
         color: '#FFFFFF',
         alignSelf: 'center'
+    },
+    scene: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#F5FCFF',
+        padding: 0,
+        marginTop: 0
     }
 });
 
