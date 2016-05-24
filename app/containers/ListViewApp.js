@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Navigator
+  Navigator,
+  TouchableHighlight,
+  Text
 } from 'react-native';
 import {ListViewComponent} from '../../ListViewComponent';
 
@@ -15,13 +17,20 @@ export default class ListViewApp extends Component {
                 this.navigator = navigator;
             }}
             renderScene={this.renderScene}
-            tintColor='#000000'
-            barTintColor='#000000'
-            titleTextColor='#000000'
+            tintColor='#AAAAAA'
+            barTintColor='#AAAAAA'
+            titleTextColor='#AAAAAA'
             navigationBarHidden={false}
             initialRoute={{
                 title: 'ListView',
-                component: ListViewComponent}} />
+                component: ListViewComponent,
+                onPress: this.onPress
+            }}
+                navigationBar={
+                  <Navigator.NavigationBar
+                    style={ styles.nav }
+                    routeMapper={ NavigationBarRouteMapper } />
+                } />
         );
     }
 
@@ -42,57 +51,63 @@ export default class ListViewApp extends Component {
               {...route.passProps} />
         );
     }
+
+    onPress() {
+        alert("YO FROM RIGHT BUTTON");
+    }
 }
 
+let NavigationBarRouteMapper = {
+    LeftButton(route, navigator, index, navState) {
+        if (index > 0) {
+            return (
+            <TouchableHighlight
+            underlayColor="transparent"
+            onPress={() => {
+                if (index > 0) {
+                    navigator.pop();
+                }
+            }}>
+            <Text style={ styles.navbarLeftButton }>Back</Text>
+            </TouchableHighlight>);
+        } else {
+            return null;
+        }
+    },
+    RightButton(route, navigator, index, navState) {
+        if (index === 0) {
+            return (
+                <TouchableHighlight
+                onPress={ () => route.onPress() }>
+                    <Text style={ styles.navbarRightButton }>
+                        { route.rightText || 'Right Button' }
+                    </Text>
+                </TouchableHighlight>);
+        }
+    },
+    Title(route, navigator, index, navState) {
+        return <Text style={ styles.navbarTitleText }>{ route.name || 'NY Times' }</Text>;
+    }
+};
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#F5FCFF',
-        padding: 0,
-        marginTop: 60
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5
-    },
-    row: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        padding: 10,
-        backgroundColor: '#F6F6F6'
-    },
-    text: {
-        flex: 1,
-        backgroundColor: '#DDDDDD'
-    },
-    listView: {
-        flex: 1,
-        backgroundColor: '#999999'
-    },
-    sectionDivider: {
-        padding: 8,
-        backgroundColor: '#70BD99',
-        alignItems: 'center'
-    },
-    headingText: {
-        flex: 1,
-        fontSize: 14,
-        color: '#FFFFFF',
-        alignSelf: 'center'
-    },
     scene: {
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#F5FCFF',
         padding: 0,
         marginTop: 0
+    },
+    navbarTitleText: {
+        fontWeight: "500",
+        marginVertical: 9
+    },
+    navbarLeftButton: {
+        paddingLeft: 10,
+        paddingTop: 10
+    },
+    navbarRightButton: {
+        paddingRight: 10,
+        paddingTop: 10
     }
 });

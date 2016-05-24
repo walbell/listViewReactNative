@@ -48,7 +48,8 @@ export class ListViewComponent extends Component {
             animation: 'FloatFromBottom',
             passProps: {
                 rank
-            }
+            },
+            name: `Detail ${rank}`
         });
     }
 
