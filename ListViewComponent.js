@@ -19,13 +19,11 @@ export class ListViewComponent extends Component {
         this.state = {
             dataSource: ds.cloneWithRows([])
         };
-
         this.renderRow = this.renderRow.bind(this);
         this.displayDetail = this.displayDetail.bind(this);
     }
 
     componentDidMount() {
-        console.log('componentDidMount');
         this.refreshData();
     }
 
@@ -46,6 +44,7 @@ export class ListViewComponent extends Component {
         this.props.navigator.push({
             component: DetailComponent,
             animation: 'FloatFromBottom',
+            hideNavBar: true,
             passProps: {
                 rank
             },
@@ -92,11 +91,12 @@ export class ListViewComponent extends Component {
         return (
                 <View style={styles.container}>
                     <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderRow}
-                    renderHeader={this.renderHeader}
-                    renderFooter={this.renderFooter}
-                    style={styles.listView}/>
+                        automaticallyAdjustContentInsets={false}
+                        dataSource={this.state.dataSource}
+                        renderRow={this.renderRow}
+                        renderHeader={this.renderHeader}
+                        renderFooter={this.renderFooter}
+                        style={styles.listView}/>
                 </View>
         );
     }
@@ -106,14 +106,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'green',
         padding: 0,
         marginTop: 60
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10
     },
     instructions: {
         textAlign: 'center',

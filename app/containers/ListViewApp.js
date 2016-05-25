@@ -5,9 +5,20 @@ import {
   TouchableHighlight,
   Text
 } from 'react-native';
-import {ListViewComponent} from '../../ListViewComponent';
+import Main from '../../Main';
+import {NavigationBar} from '../../CustomNavigationBar';
 
 export default class ListViewApp extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hideNavBar: false
+        };
+
+        this.renderScene = this.renderScene.bind(this);
+    }
+
     render () {
         return (
           <Navigator
@@ -17,19 +28,17 @@ export default class ListViewApp extends Component {
                 this.navigator = navigator;
             }}
             renderScene={this.renderScene}
-            tintColor='#AAAAAA'
-            barTintColor='#AAAAAA'
-            titleTextColor='#AAAAAA'
-            navigationBarHidden={false}
+            navigationBarHidden={true}
+            onWillFocus={this.onNavWillFocus}
             initialRoute={{
-                title: 'ListView',
-                component: ListViewComponent,
+                title: 'Main',
+                component: Main,
                 onPress: this.onPress
             }}
                 navigationBar={
-                  <Navigator.NavigationBar
-                    style={ styles.nav }
-                    routeMapper={ NavigationBarRouteMapper } />
+                    <NavigationBar
+                        routeMapper={NavigationBarRouteMapper}
+                    />
                 } />
         );
     }
@@ -94,13 +103,12 @@ const styles = StyleSheet.create({
     scene: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#F5FCFF',
-        padding: 0,
-        marginTop: 0
+        backgroundColor: 'yellow',
+        padding: 0
     },
     navbarTitleText: {
         fontWeight: "500",
-        marginVertical: 9
+        marginTop: 9
     },
     navbarLeftButton: {
         paddingLeft: 10,
@@ -110,4 +118,5 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         paddingTop: 10
     }
+
 });
