@@ -7,9 +7,14 @@ import {
   StyleSheet,
   Text,
   View,
-  ListView
+  ListView,
+  Dimensions
 } from 'react-native';
 import { DetailComponent } from '../components/DetailComponent';
+import { VideoItem } from '../components/VideoItem';
+
+const width = Dimensions.get('window').width,
+    height = Dimensions.get('window').height; //full height
 
 let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
@@ -48,18 +53,14 @@ export class ListViewComponent extends Component {
     //function responsible for rendering the row
     renderRow(rowData) {
         return (
-            // <BookItem
-            //     coverURL={rowData.book_image}
-            //     title={rowData.title}
-            //     author={rowData.author}
-            //     rank={rowData.rank}
-            //     onPress={this.displayDetail}
-            // />
-            <View>
-                <Text> {rowData.title} </Text>
-                <Text> {rowData.views} </Text>
-                <Text> {rowData.youtube_id} </Text>
-            </View>
+            <VideoItem
+                style={styles.videoItem}
+                coverURL={rowData.thumbnail}
+                title={rowData.title}
+                business={rowData.author.name}
+                views={rowData.views}
+                onPress={this.displayDetail}
+            />
         );
     }
 
@@ -79,7 +80,7 @@ export class ListViewComponent extends Component {
             <View
             style={styles.sectionDivider}>
                 <Text style={styles.headingText}>
-                Data from the Youtube API.
+                Scroll to view more shops
                 </Text>
             </View>
         );
@@ -90,11 +91,12 @@ export class ListViewComponent extends Component {
                 <View style={styles.container}>
                     <ListView
                         automaticallyAdjustContentInsets={false}
+                        enableEmptySections={true}
                         dataSource={this.state.dataSource}
                         renderRow={this.renderRow}
                         renderHeader={this.renderHeader}
                         renderFooter={this.renderFooter}
-                        style={styles.listView}/>
+                        contentContainerStyle={styles.listView}/>
                 </View>
         );
     }
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: 'green',
+        backgroundColor: '#303F9F',
         padding: 0,
         marginTop: 60
     },
@@ -125,13 +127,15 @@ const styles = StyleSheet.create({
         backgroundColor: '#DDDDDD'
     },
     listView: {
-        flex: 1,
-        backgroundColor: '#999999'
+        justifyContent: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
     },
     sectionDivider: {
         padding: 8,
         backgroundColor: '#70BD99',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: width
     },
     headingText: {
         flex: 1,

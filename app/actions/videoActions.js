@@ -9,7 +9,7 @@ export const getVideos = (latitude, longitude) => (dispatch) => _getVideos(dispa
 const _getVideos = (dispatch, latitude, longitude) => {
     dispatch(_getVideosStarted(latitude, longitude));
 
-    let url = 'http://localhost:3000/api/videos';
+    let url = 'http://walbell.local:3000/api/videos';
 
     return fetch(url)
     .then((resp) => resp.json())
