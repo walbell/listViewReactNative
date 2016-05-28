@@ -1,12 +1,15 @@
 import React, { Component } from 'react-native';
-import { createStore, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 
-import * as reducers from '../reducers';
-import ListViewApp from './ListViewApp';
+import ListViewApp from '../components/ListViewApp';
+import reducers from '../reducers';
 
-const reducer = combineReducers(reducers),
-    store = createStore(reducer);
+const logger = createLogger(),
+    createStoreWithMiddleware = applyMiddleware(thunk, logger)(createStore),
+    store = createStoreWithMiddleware(reducers);
 
 export default class App extends Component {
     render() {

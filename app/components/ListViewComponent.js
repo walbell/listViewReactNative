@@ -9,38 +9,31 @@ import {
   View,
   ListView
 } from 'react-native';
-import { BookItem } from './BookItem';
-import { DetailComponent } from './DetailComponent';
+import { DetailComponent } from '../components/DetailComponent';
+
 let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
 export class ListViewComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: ds.cloneWithRows([])
+            dataSource: ds.cloneWithRows(this.props.videos)
         };
         this.renderRow = this.renderRow.bind(this);
         this.displayDetail = this.displayDetail.bind(this);
     }
 
     componentDidMount() {
-        this.refreshData();
+        this.props.getVideos(30, 30);
     }
 
-    refreshData () {
-        let endpoint = 'http://api.nytimes.com/svc/books/v3/lists/hardcover-fiction?response-format=json&api-key=a41fc9894e2a4d1c8b41ad392ac3afe5';
-        fetch(endpoint)
-        .then(response => response.json())
-        .then((rjson) => {
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(rjson.results.books)
-            });
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            dataSource: ds.cloneWithRows(nextProps.videos)
         });
     }
 
     displayDetail(rank) {
-        console.log('clicked on ', rank);
-        //Actions.ListView();
         this.props.navigator.push({
             component: DetailComponent,
             animation: 'FloatFromBottom',
@@ -55,13 +48,18 @@ export class ListViewComponent extends Component {
     //function responsible for rendering the row
     renderRow(rowData) {
         return (
-            <BookItem
-                coverURL={rowData.book_image}
-                title={rowData.title}
-                author={rowData.author}
-                rank={rowData.rank}
-                onPress={this.displayDetail}
-            />
+            // <BookItem
+            //     coverURL={rowData.book_image}
+            //     title={rowData.title}
+            //     author={rowData.author}
+            //     rank={rowData.rank}
+            //     onPress={this.displayDetail}
+            // />
+            <View>
+                <Text> {rowData.title} </Text>
+                <Text> {rowData.views} </Text>
+                <Text> {rowData.youtube_id} </Text>
+            </View>
         );
     }
 
@@ -70,7 +68,7 @@ export class ListViewComponent extends Component {
             <View
             style={styles.sectionDivider}>
                 <Text style={styles.headingText}>
-                Bestsellers in Hardcover fiction
+                Shops around you
                 </Text>
             </View>
         );
@@ -81,7 +79,7 @@ export class ListViewComponent extends Component {
             <View
             style={styles.sectionDivider}>
                 <Text style={styles.headingText}>
-                Data from the New York Times.
+                Data from the Youtube API.
                 </Text>
             </View>
         );

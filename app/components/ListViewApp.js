@@ -5,8 +5,8 @@ import {
   TouchableHighlight,
   Text
 } from 'react-native';
-import Main from '../../Main';
-import {NavigationBar} from '../../CustomNavigationBar';
+import {Main} from './Main';
+import {NavigationBar} from './CustomNavigationBar';
 
 export default class ListViewApp extends Component {
     constructor(props) {

@@ -1,5 +1,8 @@
-import listView from './listView';
+import { combineReducers } from 'redux';
+import VideoReducer from './videoReducer';
 
-export {
-  listView
-};
+const rootReducer = combineReducers({
+    videos: VideoReducer
+});
+
+export default rootReducer;
