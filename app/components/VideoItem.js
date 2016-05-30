@@ -37,7 +37,7 @@ export class VideoItem extends Component {
 //this defines the interface of the component
 VideoItem.propTypes = {
     coverURL: React.PropTypes.string.isRequired,
-    business: React.PropTypes.string.isRequired,
+    author: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired
 };
 
