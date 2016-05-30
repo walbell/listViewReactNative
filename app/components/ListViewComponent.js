@@ -57,7 +57,7 @@ export class ListViewComponent extends Component {
                 style={styles.videoItem}
                 coverURL={rowData.thumbnail}
                 title={rowData.title}
-                business={rowData.author.name}
+                author={rowData.author.name}
                 views={rowData.views}
                 onPress={this.displayDetail}
             />

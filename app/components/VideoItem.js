@@ -15,9 +15,17 @@ export class VideoItem extends Component {
     render() {
         console.log('URL', this.props.coverURL);
         return (
-            <TouchableHighlight onPress={() => this.props.onPress(this.props.business)}>
+            <TouchableHighlight onPress={() => this.props.onPress(this.props.author)}>
                 <View style={styles.videoItem}>
                     <Image style={styles.cover} source={{ uri: this.props.coverURL }}>
+                    <View style={styles.textOverlay}>
+                        <Text style={styles.author}>
+                            {this.props.author}
+                        </Text>
+                        <Text style={styles.title}>
+                            {this.props.title}
+                        </Text>
+                    </View>
                     </Image>
                 </View>
             </TouchableHighlight>
@@ -47,15 +55,26 @@ const styles = StyleSheet.create({
         height: 300,
         resizeMode: 'cover'
     },
-    info: {
-        flex: 3,
-        alignItems: 'flex-end',
+    textOverlay: {
+        flex: 1,
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        backgroundColor: 'black',
+        width: width / 2,
+        height: 100,
+        opacity: 0.6,
         flexDirection: 'column',
-        alignSelf: 'center',
-        padding: 20
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     author: {
-        fontSize: 18,
-        fontWeight: 'bold'
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: 'white'
+    },
+    title: {
+        fontSize: 15,
+        color: 'gray'
     }
 });
