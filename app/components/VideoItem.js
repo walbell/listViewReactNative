@@ -13,17 +13,16 @@ const width = Dimensions.get('window').width;
 export class VideoItem extends Component {
 
     render() {
-        console.log('URL', this.props.coverURL);
         return (
-            <TouchableHighlight onPress={() => this.props.onPress(this.props.author)}>
+            <TouchableHighlight onPress={() => this.props.onPress(this.props.video)}>
                 <View style={styles.videoItem}>
-                    <Image style={styles.cover} source={{ uri: this.props.coverURL }}>
+                    <Image style={styles.cover} source={{ uri: this.props.video.thumbnail }}>
                     <View style={styles.textOverlay}>
                         <Text style={styles.author}>
-                            {this.props.author}
+                            {this.props.video.author.name}
                         </Text>
                         <Text style={styles.title}>
-                            {this.props.title}
+                            {this.props.video.title}
                         </Text>
                     </View>
                     </Image>
@@ -36,9 +35,7 @@ export class VideoItem extends Component {
 
 //this defines the interface of the component
 VideoItem.propTypes = {
-    coverURL: React.PropTypes.string.isRequired,
-    author: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired
+    video: React.PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({

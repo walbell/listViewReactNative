@@ -10,8 +10,9 @@ import {
   ListView,
   Dimensions
 } from 'react-native';
-import { DetailComponent } from '../components/DetailComponent';
+import { VideoDetailComponent } from '../components/VideoDetailComponent';
 import { VideoItem } from '../components/VideoItem';
+import Palette from '../styles/palette';
 
 const width = Dimensions.get('window').width,
     height = Dimensions.get('window').height; //full height
@@ -38,15 +39,14 @@ export class ListViewComponent extends Component {
         });
     }
 
-    displayDetail(rank) {
+    displayDetail(video) {
         this.props.navigator.push({
-            component: DetailComponent,
+            component: VideoDetailComponent,
             animation: 'FloatFromBottom',
             hideNavBar: true,
             passProps: {
-                rank
-            },
-            name: `Detail ${rank}`
+                video
+            }
         });
     }
 
@@ -55,10 +55,7 @@ export class ListViewComponent extends Component {
         return (
             <VideoItem
                 style={styles.videoItem}
-                coverURL={rowData.thumbnail}
-                title={rowData.title}
-                author={rowData.author.name}
-                views={rowData.views}
+                video={rowData}
                 onPress={this.displayDetail}
             />
         );
@@ -133,7 +130,7 @@ const styles = StyleSheet.create({
     },
     sectionDivider: {
         padding: 8,
-        backgroundColor: '#70BD99',
+        backgroundColor: Palette.secondary_color,
         alignItems: 'center',
         width: width
     },

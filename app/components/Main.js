@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import {Tabs} from './Tabs';
 import {NavigationBar} from './CustomNavigationBar';
+import Palette from '../styles/palette';
 
 export default class Main extends Component {
     constructor(props) {
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     scene: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#009688',
+        backgroundColor: Palette.primary_color,
         padding: 0
     },
     navbarTitleText: {
